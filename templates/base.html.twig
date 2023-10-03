@@ -16,6 +16,9 @@
         <main class="flex-grow-1">
             {% block body %}{% endblock %}
         </main>
+        <aside>
+            {% include 'partials/toasts.html.twig' %}
+        </aside>
         {% include 'partials/footer.html.twig' %}
     </body>
 </html>
