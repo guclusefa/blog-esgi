@@ -3,9 +3,7 @@
 {% block title %}Create an article{% endblock %}
 
 {% block body %}
-    <div class="container">
         <h1>Create an article</h1>
         {% include('backend/article/_form.html.twig') with {'button_label': 'Create'} %}
         <a class="btn btn-secondary" href="{{ path('app.admin.articles') }}">Back to list</a>
-    </div>
 {% endblock %}

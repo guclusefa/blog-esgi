@@ -23,4 +23,5 @@ class RouteConstants
     const ADMIN_CATEGORIES_ITEM = 'app.admin.categories.item';
     const ADMIN_CATEGORIES_EDIT = 'app.admin.categories.edit';
     const ADMIN_CATEGORIES_DELETE = 'app.admin.categories.delete';
+    const ADMIN_CATEGORIES_VISIBILITY = 'app.admin.categories.visibility';
 }

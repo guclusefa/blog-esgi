@@ -3,9 +3,7 @@
 {% block title %}Edit : {{ article.title }}{% endblock %}
 
 {% block body %}
-    <div class="container">
         <h1>Edit : {{ article.title }}</h1>
         {% include('backend/article/_form.html.twig') with {'button_label': 'Edit'} %}
         <a class="btn btn-secondary" href="{{ path('app.admin.articles.item', {'slug': article.slug}) }}">Back to article</a>
-    </div>
 {% endblock %}

@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Category;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,6 +27,19 @@ class ArticleType extends AbstractType
                     'placeholder' => 'Content',
                     'rows' => '5',
                 ],
+            ])
+            ->add('categories', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'label',
+                'multiple' => true,
+                'expanded' => true,
+                'query_builder' => function (EntityRepository $entityRepository) {
+                    return $entityRepository->createQueryBuilder('c')
+                        ->where('c.enabled = :enabled')
+                        ->setParameter('enabled', true)
+                        ->orderBy('c.label', 'ASC')
+                    ;
+                }
             ])
             ->add('drafted', null, [
                 'label' => 'Drafted?',

@@ -10,6 +10,7 @@ import './styles/app.scss';
 
 import 'bootstrap';
 
+import './scripts/ajax.js';
 import './scripts/toast.js';
 
 require("bootstrap");
