@@ -28,12 +28,12 @@ class ArticleController extends AbstractController
     private function checkArticle(?Article $article): void
     {
         if (!$article instanceof Article) {
-            $this->addFlash(ToastConstants::TOAST_ERROR, 'Article not found');
+            $this->addFlash(ToastConstants::ERROR, 'Article not found');
             throw $this->createNotFoundException('Article not found');
         }
     }
 
-    #[Route('', name: RouteConstants::ROUTE_ADMIN_ARTICLES, methods: ['GET'])]
+    #[Route('', name: RouteConstants::ADMIN_ARTICLES, methods: ['GET'])]
     public function list(): Response
     {
         $articles = $this->articleRepository->findAll();
@@ -42,7 +42,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/create', name: RouteConstants::ROUTE_ADMIN_ARTICLE_CREATE, methods: ['GET', 'POST'])]
+    #[Route('/create', name: RouteConstants::ADMIN_ARTICLE_CREATE, methods: ['GET', 'POST'])]
     public function create(Request $request): Response|RedirectResponse
     {
         $article = new Article();
@@ -55,9 +55,9 @@ class ArticleController extends AbstractController
 
             $this->em->persist($article);
             $this->em->flush();
-            $this->addFlash(ToastConstants::TOAST_SUCCESS, 'Article created successfully!');
+            $this->addFlash(ToastConstants::SUCCESS, 'Article created successfully!');
 
-            return $this->redirectToRoute(RouteConstants::ROUTE_ADMIN_ARTICLES);
+            return $this->redirectToRoute(RouteConstants::ADMIN_ARTICLES);
         }
 
         return $this->render('backend/article/create.html.twig', [
@@ -65,7 +65,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: RouteConstants::ROUTE_ADMIN_ARTICLE_ITEM, methods: ['GET'])]
+    #[Route('/{slug}', name: RouteConstants::ADMIN_ARTICLE_ITEM, methods: ['GET'])]
     public function item(?Article $article): Response
     {
         $this->checkArticle($article);
@@ -74,7 +74,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}/edit', name: RouteConstants::ROUTE_ADMIN_ARTICLE_EDIT, methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: RouteConstants::ADMIN_ARTICLE_EDIT, methods: ['GET', 'POST'])]
     public function edit(Request $request, ?Article $article): Response|RedirectResponse
     {
         $this->checkArticle($article);
@@ -84,8 +84,8 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
-            $this->addFlash(ToastConstants::TOAST_SUCCESS, 'Article updated successfully!');
-            return $this->redirectToRoute(RouteConstants::ROUTE_ADMIN_ARTICLES);
+            $this->addFlash(ToastConstants::SUCCESS, 'Article updated successfully!');
+            return $this->redirectToRoute(RouteConstants::ADMIN_ARTICLES);
         }
 
         return $this->render('backend/article/edit.html.twig', [
@@ -94,7 +94,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}/delete', name: RouteConstants::ROUTE_ADMIN_ARTICLE_DELETE, methods: ['GET', 'POST'])]
+    #[Route('/{slug}/delete', name: RouteConstants::ADMIN_ARTICLE_DELETE, methods: ['GET', 'POST'])]
     public function delete(Request $request, ?Article $article): Response|RedirectResponse
     {
         $this->checkArticle($article);
@@ -102,8 +102,8 @@ class ArticleController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $this->em->remove($article);
             $this->em->flush();
-            $this->addFlash(ToastConstants::TOAST_SUCCESS, 'Article deleted successfully!');
-            return $this->redirectToRoute(RouteConstants::ROUTE_ADMIN_ARTICLES);
+            $this->addFlash(ToastConstants::SUCCESS, 'Article deleted successfully!');
+            return $this->redirectToRoute(RouteConstants::ADMIN_ARTICLES);
         }
 
         return $this->render('backend/article/delete.html.twig', [

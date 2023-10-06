@@ -25,19 +25,19 @@ class SecurityController extends AbstractController
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    #[Route('/login', name: RouteConstants::ROUTE_LOGIN, methods: ['GET', 'POST'])]
+    #[Route('/login', name: RouteConstants::LOGIN, methods: ['GET', 'POST'])]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         // Check if the user is already authenticated
         if ($this->securityUtils->isUserAuthenticated()) {
-            $this->addFlash(ToastConstants::TOAST_ERROR, 'You are already logged in.');
-            return $this->redirectToRoute(RouteConstants::ROUTE_HOME);
+            $this->addFlash(ToastConstants::ERROR, 'You are already logged in.');
+            return $this->redirectToRoute(RouteConstants::HOME);
         }
 
         // Check if there is any error
         $error = $authenticationUtils->getLastAuthenticationError();
         if ($error) {
-            $this->addFlash(ToastConstants::TOAST_ERROR, $error->getMessage());
+            $this->addFlash(ToastConstants::ERROR, $error->getMessage());
         }
 
         // Retrieve the last username
@@ -47,13 +47,13 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/register', name: RouteConstants::ROUTE_REGISTER, methods: ['GET', 'POST'])]
+    #[Route('/register', name: RouteConstants::REGISTER, methods: ['GET', 'POST'])]
     public function register(): Response
     {
         // Check if the user is already authenticated
         if ($this->securityUtils->isUserAuthenticated()) {
-            $this->addFlash(ToastConstants::TOAST_ERROR, 'You are already logged in.');
-            return $this->redirectToRoute(RouteConstants::ROUTE_HOME);
+            $this->addFlash(ToastConstants::ERROR, 'You are already logged in.');
+            return $this->redirectToRoute(RouteConstants::HOME);
         }
 
         return $this->render('security/register.html.twig');
