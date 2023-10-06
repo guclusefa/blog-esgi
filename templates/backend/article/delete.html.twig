@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete : {{ article.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Delete : {{ article.title }}</h1>
+        {% include('backend/article/_deleteForm.html.twig') %}
+        <a class="btn btn-secondary" href="{{ path('app.admin.articles.item', {'slug': article.slug}) }}">Back to article</a>
+    </div>
+{% endblock %}

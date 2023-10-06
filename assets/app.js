@@ -11,3 +11,5 @@ import './styles/app.scss';
 import 'bootstrap';
 
 import './scripts/toast.js';
+
+require("bootstrap");

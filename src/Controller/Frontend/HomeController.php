@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Frontend;
 
 use App\Constants\RouteConstants;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     #[Route('/', name: RouteConstants::ROUTE_HOME)]
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
+        return $this->render('frontend/home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }
