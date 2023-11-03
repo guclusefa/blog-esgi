@@ -32,14 +32,16 @@ class ArticleType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'label',
                 'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
                 'query_builder' => function (EntityRepository $entityRepository) {
                     return $entityRepository->createQueryBuilder('c')
                         ->where('c.enabled = :enabled')
                         ->setParameter('enabled', true)
                         ->orderBy('c.label', 'ASC')
                     ;
-                }
+                },
+                'autocomplete' => true,
+                'by_reference' => false,
             ])
             ->add('drafted', null, [
                 'label' => 'Drafted?',
