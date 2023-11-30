@@ -25,6 +25,16 @@ class SecurityUtils
     }
 
     /**
+     * Method to check if the user is editor
+     * 
+     * @return bool
+     */
+    public function isUserEditor(): bool
+    {
+        return $this->security->isGranted(UserConstants::ROLE_EDITOR);
+    }
+
+    /**
      * Method to check if the user is admin
      *
      * @return bool
